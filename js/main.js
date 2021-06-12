@@ -1,15 +1,44 @@
 const iva = x => x * 0.21; //Calcula directamente el IVA de un producto
-const carrito = []; //Arreglo que contiene los productos que se van sumando al carrito. Más adelante se tratará de un arreglo de objetos, donde cada uno tendrá un ID para facilitar supresión de productos
+const carrito = [];
+class Producto {
+
+    constructor(id, nombre, precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    getID() {
+        return this.id;
+    }
+    getNombre() {
+        return this.nombre;
+    }
+    getPrecio() {
+        return this.precio;
+    }
+
+    setID(id) {
+        this.id = id;
+    }
+    setNombre(nombre) {
+        this.nombre = nombre;
+    }
+    setPrecio(precio) {
+        this.precio = precio;
+    }
+}
 
 //Función para agregar un producto al carrito.
-function agregarProducto(monto) {
-    carrito.push(monto);
+
+function agregarProducto(producto) {
+    carrito.push(producto);
 }
 
 //Función que calcula el precio del producto con el IVA incluído
 
-function calcularPrecioIva(producto) {
-    return producto + iva(producto);
+function calcularPrecioIva(monto) {
+    return monto + iva(monto);
 }
 
 //Función que calcula el total acumulado en todo el carrito
@@ -17,13 +46,23 @@ function calcularPrecioIva(producto) {
 function calcularTotalCarrito() {
     let total = 0;
     for(let i=0 ; i < carrito.length ; i++) {
-        total += calcularPrecioIva(carrito[i]); 
+        total += calcularPrecioIva(carrito[i].getPrecio()); 
     }
     return total;
 }
 
-let precioUno = parseFloat(prompt("Ingrese un precio a agregar al carrito"));
-agregarProducto(precioUno);
-let precioDos = parseFloat(prompt("Agregue un segundo precio al carrito"));
-agregarProducto(precioDos);
-alert("El total de su compra es " + calcularTotalCarrito());
+function ingresarProducto() {
+    let producto = new Producto();
+    producto.setID(parseInt(prompt("Ingrese el ID del producto")));
+    producto.setNombre(prompt("Ingrese el nombre del producto"));
+    producto.setPrecio(parseFloat(prompt("Ingrese el precio del producto")));
+    agregarProducto(producto);
+}
+
+// Ejecución del programa
+
+for (let i=0; i < 5 ; i++) {
+    ingresarProducto();
+}
+
+alert("El precio total de tu carrito es " + calcularTotalCarrito());
