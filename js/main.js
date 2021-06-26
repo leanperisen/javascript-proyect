@@ -2,9 +2,10 @@ const iva = x => x * 0.21; //Calcula directamente el IVA de un producto
 const carrito = [];
 class Producto {
 
-    constructor(id, nombre, precio) {
+    constructor(id, nombre, categoria, precio) {
         this.id = id;
         this.nombre = nombre;
+        this.categoria = categoria;
         this.precio = precio;
     }
 
@@ -13,6 +14,9 @@ class Producto {
     }
     getNombre() {
         return this.nombre;
+    }
+    getCategoria() {
+        return this.categoria
     }
     getPrecio() {
         return this.precio;
@@ -23,6 +27,9 @@ class Producto {
     }
     setNombre(nombre) {
         this.nombre = nombre;
+    }
+    setCategoria(categoria) {
+        this.categoria = categoria;
     }
     setPrecio(precio) {
         this.precio = precio;
@@ -53,13 +60,13 @@ function vaciarCarrito() {
     carrito.splice(0,carrito.length);
 }
 
-function imprimirCarrito() {
+/* function imprimirCarrito() {
     let informe = "";
     for (const producto of carrito) {
         informe += " " + producto.getNombre();
     }
     alert("El listado de sus productos es:" + informe);
-}
+} */
 
 //Función que calcula el total acumulado en todo el carrito
 
@@ -75,27 +82,32 @@ function ingresarProducto() {
     let producto = new Producto();
     producto.setID(parseInt(prompt("Ingrese el ID del producto")));
     producto.setNombre(prompt("Ingrese el nombre del producto"));
+    producto.setCategoria(prompt("Ingrese la categoría del producto"));
     producto.setPrecio(parseFloat(prompt("Ingrese el precio del producto")));
     agregarProducto(producto);
 }
 
-// Ejecución del programa
-
-
-//Solicita el ingreso de 5 productos, con sus respectivos ID, descripción y precio y se agregan al carrito.
-for (let i=0; i < 5 ; i++) {
+for (let i=0; i < 5; i++) {
     ingresarProducto();
 }
 
-//Solicita un ID para borrar dicho producto del carrito y ejecuta la función de borrado buscando por ID
-let borrado = prompt("Ingres el ID de un producto a borrar del carrito");
-quitarProducto(borrado);
+let prodContainer = document.querySelector("#productos");
 
-//Imprime el carrito luego de haber borrado, para informar los elementos que quedaron en el carrito
-imprimirCarrito();
+let html = "";
 
-//Informa el precio total del carrito
-alert("El precio total de tu carrito es " + calcularTotalCarrito());
+carrito.forEach (producto => {
+    html += `
+    <article id="${producto.getID()}">
+        <h3>${producto.getCategoria()}</h3>
+        <p>${producto.getNombre()}</p>
+        <p>${producto.getPrecio()}</p>
+    </article>`;
+})
 
-//Deja el carrito vacío
-vaciarCarrito();
+prodContainer.innerHTML = html;
+
+let idBorrado = parseInt(prompt("Ingrese el ID del producto a eliminar"));
+
+let articulo = document.getElementById(idBorrado);
+
+articulo.parentNode.removeChild(articulo);
