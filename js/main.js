@@ -1,113 +1,121 @@
+const products = [
+    {
+        id: "1",
+        name: "La metamorfosis",
+        author: "Franz Kafka",
+        price: 1300,
+        stock: 10
+    },
+    {
+        id: "2",
+        name: "Crónica de una muerte anunciada",
+        author: "Gabriel García Márquez",
+        price: 1800,
+        stock: 0
+    },
+    {
+        id: "3",
+        name: "El señor de los Anillos: La Comunidad del Anillo",
+        author: "J.R.R Tolkien",
+        price: 2300,
+        stock: 20
+    },
+    {
+        id: "4",
+        name: "El Arnoldo: podcast",
+        author: "El arnoldo",
+        price: 1000,
+        stock: 3
+    },
+    {
+        id: "5",
+        name: "Siddhartha",
+        author: "Herman Hesse",
+        price: 1200,
+        stock: 15
+    },
+    {
+        id: "6",
+        name: "It",
+        author: "Stephen King",
+        price: 1800,
+        stock: 22
+    },
+];
+const cart = [];
+
+
 const iva = x => x * 0.21; //Calcula directamente el IVA de un producto
-const carrito = [];
-class Producto {
-
-    constructor(id, nombre, categoria, precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.categoria = categoria;
-        this.precio = precio;
-    }
-
-    getID() {
-        return this.id;
-    }
-    getNombre() {
-        return this.nombre;
-    }
-    getCategoria() {
-        return this.categoria
-    }
-    getPrecio() {
-        return this.precio;
-    }
-
-    setID(id) {
-        this.id = id;
-    }
-    setNombre(nombre) {
-        this.nombre = nombre;
-    }
-    setCategoria(categoria) {
-        this.categoria = categoria;
-    }
-    setPrecio(precio) {
-        this.precio = precio;
-    }
-}
 
 //Función que calcula el precio del producto con el IVA incluído
 
-function calcularPrecioIva(monto) {
-    return monto + iva(monto);
-}
-
-//Función para agregar un producto al carrito.
-
-function agregarProducto(producto) {
-    carrito.push(producto);
+function calculatePriceIva(mount) {
+    return mount + iva(mount);
 }
 
 //Función para eliminar un producto del carrito cuyo ID se recibe como parámetro
 
-function quitarProducto(id) {
-    carrito.splice(carrito.find(elem => elem.getID() === id),1);
+function deleteProduct(id) {
+    cart.splice(cart.find(elem => elem.id() === id),1);
 }
 
 //Función para eliminar todos los productos del carrito
 
-function vaciarCarrito() {
-    carrito.splice(0,carrito.length);
+function emptyCart() {
+    cart.splice(0,cart.length);
 }
 
-/* function imprimirCarrito() {
-    let informe = "";
-    for (const producto of carrito) {
-        informe += " " + producto.getNombre();
-    }
-    alert("El listado de sus productos es:" + informe);
-} */
+//Función para calcular el total del precio sumado en el carrito
 
-//Función que calcula el total acumulado en todo el carrito
-
-function calcularTotalCarrito() {
+function calculateTotalCart() {
     let total = 0;
-    for(let i=0 ; i < carrito.length ; i++) {
-        total += calcularPrecioIva(carrito[i].getPrecio()); 
+    for(let i=0 ; i < cart.length ; i++) {
+        total += calculatePriceIva(cart[i].price); 
     }
     return total;
 }
 
-function ingresarProducto() {
-    let producto = new Producto();
-    producto.setID(parseInt(prompt("Ingrese el ID del producto")));
-    producto.setNombre(prompt("Ingrese el nombre del producto"));
-    producto.setCategoria(prompt("Ingrese la categoría del producto"));
-    producto.setPrecio(parseFloat(prompt("Ingrese el precio del producto")));
-    agregarProducto(producto);
+function informTotal() {
+    alert("Your total price is U$D" + calculateTotalCart());
 }
 
-for (let i=0; i < 5; i++) {
-    ingresarProducto();
-}
+// Función para renderizar los productos al sumarse al carrito
 
-let prodContainer = document.querySelector("#productos");
-
-let html = "";
-
-carrito.forEach (producto => {
-    html += `
-    <article id="${producto.getID()}">
-        <h3>${producto.getCategoria()}</h3>
-        <p>${producto.getNombre()}</p>
-        <p>${producto.getPrecio()}</p>
+function renderHTML(product) {
+    let sectionCart = document.querySelector(".section-cart");
+    let article = document.createElement("article");
+    article.innerHTML = `
+    <article class="m-2" id=${product.id}>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">Price: U$D${product.price}</p>
+            </div>
+        </div>
     </article>`;
-})
+    sectionCart.appendChild(article);
+}
 
-prodContainer.innerHTML = html;
+// Función que suma el producto al carrito (evaluando si hay stock e informando el resultado de la operación) y renderiza el mismo en el HTML
 
-let idBorrado = parseInt(prompt("Ingrese el ID del producto a eliminar"));
+const addToCart = event => {
+    let idToFind = event.target.id;
+    let productFound = products.find(product => product.id === idToFind);
+    if (productFound.stock > 0) {
+        cart.push(productFound);
+        alert("Your product has been added to the cart");
+        renderHTML(productFound);
+    }
+    else {
+        alert("The product is not available");
+    }
+    
+}
 
-let articulo = document.getElementById(idBorrado);
-
-articulo.parentNode.removeChild(articulo);
+window.onload = () => {
+    const btnAddToCart = document.querySelectorAll(".btn-buy");
+    const btnBuyAll = document.querySelector(".btn-buyall");
+    btnAddToCart.forEach(btn => btn.addEventListener('click', addToCart));
+    btnBuyAll.addEventListener('click', informTotal);
+}

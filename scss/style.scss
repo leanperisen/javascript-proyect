@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "variables";
+
+* {
+    color: inherit;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: $col-pri;
+    color: $col-sec;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 50px;
+}
+
+h3,h4,h5,h6 {
+    font-size: 1.2rem;
+}
+
+nav {
+    background-color: $col-pri;
+    color: $col-sec;
+}
