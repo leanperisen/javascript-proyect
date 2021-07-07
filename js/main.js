@@ -85,7 +85,7 @@ function renderHTML(product) {
     let sectionCart = document.querySelector(".section-cart");
     let article = document.createElement("article");
     article.innerHTML = `
-    <article class="m-2" id=${product.id}>
+    <article class="m-2 cart-card" id=${product.id}>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">${product.name}</h5>
@@ -104,18 +104,25 @@ const addToCart = event => {
     let productFound = products.find(product => product.id === idToFind);
     if (productFound.stock > 0) {
         cart.push(productFound);
-        alert("Your product has been added to the cart");
         renderHTML(productFound);
+        swal("Your product has been added to the cart!", "", "success",);
     }
     else {
-        alert("The product is not available");
+        swal("The product is not available", "", "error",);
     }
     
+}
+
+const validateForm = event => {
+    event.preventDefault();
+
 }
 
 window.onload = () => {
     const btnAddToCart = document.querySelectorAll(".btn-buy");
     const btnBuyAll = document.querySelector(".btn-buyall");
+    const contactForm = $(".contact-form");
+
     btnAddToCart.forEach(btn => btn.addEventListener('click', addToCart));
     btnBuyAll.addEventListener('click', informTotal);
 }

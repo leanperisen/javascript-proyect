@@ -28,3 +28,6 @@ h3, h4, h5, h6 {
 nav {
   background-color: #FFF3F0;
   color: #02111B; }
+
+.swal-overlay {
+  background-color: black; }
