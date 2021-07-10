@@ -30,4 +30,9 @@ nav {
   color: #02111B; }
 
 .swal-overlay {
-  background-color: black; }
+  background-color: rgba(245,251,239,.9);
+}
+
+footer {
+    height: 150px;
+}

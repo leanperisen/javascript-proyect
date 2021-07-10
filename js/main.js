@@ -113,16 +113,35 @@ const addToCart = event => {
     
 }
 
-const validateForm = event => {
+function validateForm (event) {
     event.preventDefault();
-
+    let children = $(contactForm.children());
+    let name = children[0].firstElementChild.value;
+    let lastName = children[1].firstElementChild.value;
+    let message = children[6].firstElementChild.value;
+    let termsCond = children[7].firstElementChild.checked;
+    let valid = true;
+    if ((name === null || name === "") || (lastName === null || lastName === "") || (message === null || message === "") || (!termsCond)) {
+        valid = false;
+    }
+    if (valid === true) {
+        swal("Your message has been sent!", "", "success")
+    }
+    else {
+        swal("Please complete your name, last name, message and accept T&C", "", "error")
+    }
 }
 
-window.onload = () => {
-    const btnAddToCart = document.querySelectorAll(".btn-buy");
-    const btnBuyAll = document.querySelector(".btn-buyall");
-    const contactForm = $(".contact-form");
+//Variables y constantes
 
-    btnAddToCart.forEach(btn => btn.addEventListener('click', addToCart));
-    btnBuyAll.addEventListener('click', informTotal);
-}
+const btnAddToCart = document.querySelectorAll(".btn-buy");
+const btnBuyAll = document.querySelector(".btn-buyall");
+const contactForm = $(".contact-form");
+
+//Listeners
+
+btnAddToCart.forEach(btn => btn.addEventListener('click', addToCart));
+btnBuyAll.addEventListener('click', informTotal);
+contactForm.submit(validateForm);
+
+
