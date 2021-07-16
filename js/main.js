@@ -129,7 +129,7 @@ function validateForm (event) {
     }
     if (valid) {
         $.ajax({
-            url: 'https://jsonplaceholder.typicode.com/post',
+            url: 'https://jsonplaceholder.typicode.com/posts',
             method: 'POST',
             body: JSON.stringify({
                 formName: name,
