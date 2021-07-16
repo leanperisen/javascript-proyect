@@ -79,9 +79,11 @@ function informTotal() {
     alert("Your total price is U$D" + calculateTotalCart());
 }
 
+
+
 // Función para renderizar los productos al sumarse al carrito
 
-function renderHTML(product) {
+function renderCart(product) {
     let sectionCart = document.querySelector(".section-cart");
     let article = document.createElement("article");
     article.innerHTML = `
@@ -99,12 +101,12 @@ function renderHTML(product) {
 
 // Función que suma el producto al carrito (evaluando si hay stock e informando el resultado de la operación) y renderiza el mismo en el HTML
 
-const addToCart = event => {
+function addToCart (event) {
     let idToFind = event.target.id;
     let productFound = products.find(product => product.id === idToFind);
     if (productFound.stock > 0) {
         cart.push(productFound);
-        renderHTML(productFound);
+        renderCart(productFound);
         swal("Your product has been added to the cart!", "", "success",);
     }
     else {
@@ -122,13 +124,27 @@ function validateForm (event) {
     let termsCond = children[7].firstElementChild.checked;
     let valid = true;
     if ((name === null || name === "") || (lastName === null || lastName === "") || (message === null || message === "") || (!termsCond)) {
+        swal("Please complete your name, last name, message and accept T&C","", "error");
         valid = false;
     }
-    if (valid === true) {
-        swal("Your message has been sent!", "", "success")
-    }
-    else {
-        swal("Please complete your name, last name, message and accept T&C", "", "error")
+    if (valid) {
+        $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/post',
+            method: 'POST',
+            body: JSON.stringify({
+                formName: name,
+                formLastname: lastName,
+                formMssg: message,
+            }),
+            success: function (result) {
+                swal("Your message has been sent!", "", "success")
+                console.log(result)
+            },
+            error: function (jqXHR) {
+                swal("Something went wrong, please try again in a few minutes", "", "error")
+                console.log(jqXHR);
+            }
+        })
     }
 }
 

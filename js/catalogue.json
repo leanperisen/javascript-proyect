@@ -1,0 +1,44 @@
+[
+    {
+        "id": "1",
+        "name": "La metamorfosis",
+        "author": "Franz Kafka",
+        "price": 1300,
+        "stock": 10
+    },
+    {
+        "id": "2",
+        "name": "Crónica de una muerte anunciada",
+        "author": "Gabriel García Márquez",
+        "price": 1800,
+        "stock": 0
+    },
+    {
+        "id": "3",
+        "name": "El señor de los Anillos: La Comunidad del Anillo",
+        "author": "J.R.R Tolkien",
+        "price": 2300,
+        "stock": 20
+    },
+    {
+        "id": "4",
+        "name": "El Arnoldo: podcast",
+        "author": "El arnoldo",
+        "price": 1000,
+        "stock": 3
+    },
+    {
+        "id": "5",
+        "name": "Siddhartha",
+        "author": "Herman Hesse",
+        "price": 1200,
+        "stock": 15
+    },
+    {
+        "id": "6",
+        "name": "It",
+        "author": "Stephen King",
+        "price": 1800,
+        "stock": 22
+    }
+]
