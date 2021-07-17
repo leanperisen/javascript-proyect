@@ -44,7 +44,6 @@ const products = [
 ];
 const cart = [];
 
-
 const iva = x => x * 0.21; //Calcula directamente el IVA de un producto
 
 //Función que calcula el precio del producto con el IVA incluído
@@ -63,6 +62,8 @@ function deleteProduct(id) {
 
 function emptyCart() {
     cart.splice(0,cart.length);
+    let cartContainer = document.querySelector(".modal-body");
+    cartContainer.innerHTML = "";
 }
 
 //Función para calcular el total del precio sumado en el carrito
@@ -76,15 +77,13 @@ function calculateTotalCart() {
 }
 
 function informTotal() {
-    alert("Your total price is U$D" + calculateTotalCart());
+    swal("Your total price is U$D" + calculateTotalCart());
 }
-
-
 
 // Función para renderizar los productos al sumarse al carrito
 
 function renderCart(product) {
-    let sectionCart = document.querySelector(".section-cart");
+    let sectionCart = document.querySelector(".modal-body");
     let article = document.createElement("article");
     article.innerHTML = `
     <article class="m-2 cart-card" id=${product.id}>
@@ -120,11 +119,12 @@ function validateForm (event) {
     let children = $(contactForm.children());
     let name = children[0].firstElementChild.value;
     let lastName = children[1].firstElementChild.value;
-    let message = children[6].firstElementChild.value;
-    let termsCond = children[7].firstElementChild.checked;
+    let email = children[2].firstElementChild.value;
+    let message = children[7].firstElementChild.value;
+    let termsCond = children[8].firstElementChild.checked;
     let valid = true;
-    if ((name === null || name === "") || (lastName === null || lastName === "") || (message === null || message === "") || (!termsCond)) {
-        swal("Please complete your name, last name, message and accept T&C","", "error");
+    if ((name === null || name === "") || (lastName === null || lastName === "") || (email === null || email === "") || (message === null || message === "") || (!termsCond)) {
+        swal("Please complete your name, last name, email, message and accept T&C","", "error");
         valid = false;
     }
     if (valid) {
@@ -148,16 +148,20 @@ function validateForm (event) {
     }
 }
 
+function resizeCart () {
+    $(".cart-icon").css({"font-size":"2.2rem"});
+}
+
 //Variables y constantes
 
 const btnAddToCart = document.querySelectorAll(".btn-buy");
 const btnBuyAll = document.querySelector(".btn-buyall");
+const btnEmptyCart = document.querySelector(".btn-emptycart");
 const contactForm = $(".contact-form");
 
 //Listeners
 
 btnAddToCart.forEach(btn => btn.addEventListener('click', addToCart));
+btnEmptyCart.addEventListener('click', emptyCart);
 btnBuyAll.addEventListener('click', informTotal);
 contactForm.submit(validateForm);
-
-
