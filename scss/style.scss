@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import "variables";
 
+// ------------ Estilos generales / reset ------------ //
+
+
 * {
     color: inherit;
     text-decoration: none;
@@ -29,7 +32,7 @@ h2 {
     margin-top: 50px;
 }
 
-h3,h4,h5,h6 {
+h3,h4,h5 {
     font-size: 1.2rem;
 }
 
@@ -39,6 +42,32 @@ a {
         color: $col-sec;
         text-decoration: underline;
     }
+}
+
+
+// ------------ Sweet Alert ------------ //
+
+
+.swal-overlay {
+    background-color: rgba(2, 17, 27, .9)
+}
+
+.swal-button {
+    background-color: $col-ter;
+}
+
+
+// ------------ Componentes ------------ //
+
+.cart-icon {
+    margin: 5px;
+    font-size: 2.2rem;
+    color: $col-ter;
+}
+
+.btn-cart:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .btn-primary {
@@ -55,36 +84,57 @@ a {
         box-shadow: none;
     }
     &:active {
-        background-color: rgba(215,129,106,.9);
-        outline: none;
-        box-shadow: none;
+        background-color: $col-ter;
     }
 }
 
-nav {
-    background-color: $col-pri;
+.card {
+    min-height: 552px;
+    img {
+        max-height: 300px;
+    }
+}
+
+.card-body {
+    text-align: center;
+}
+
+// ------------ Estilos de secciones ------------ //
+
+
+.navbar {
     color: $col-sec;
+    padding: 0px;
 }
 
-.nav-link:hover {
-    color: $col-sec;
-    text-decoration: underline;
+.nav-link {
+    color: $col-ter;
+    font-size: 1.2rem;
+    &:hover {
+        color: $col-ter;
+        text-decoration: underline;
+    }
 }
 
-.cart-icon {
-    margin: 5px;
-    font-size: 2rem;
-}
-
-.btn-cart:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.swal-overlay {
-    background-color: rgba(2, 17, 27, .9)
+.terms-con {
+    color: $col-ter;
+    &:hover {
+        color: $col-ter;
+    }
 }
 
 footer {
     height: 200px;
+    a {
+        color: $col-ter;
+        &:hover {
+            color: $col-ter;
+        }
+    }
+}
+
+.sm-icon {
+    margin-left: 15px;
+    font-size: 1.8rem;
+    color: $col-ter;
 }

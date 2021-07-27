@@ -22,7 +22,7 @@ h2 {
   text-align: center;
   margin-top: 50px; }
 
-h3, h4, h5, h6 {
+h3, h4, h5 {
   font-size: 1.2rem; }
 
 a {
@@ -30,6 +30,21 @@ a {
   a:hover {
     color: #02111B;
     text-decoration: underline; }
+
+.swal-overlay {
+  background-color: rgba(2, 17, 27, 0.9); }
+
+.swal-button {
+  background-color: #D7816A; }
+
+.cart-icon {
+  margin: 5px;
+  font-size: 2.2rem;
+  color: #D7816A; }
+
+.btn-cart:focus {
+  outline: none;
+  box-shadow: none; }
 
 .btn-primary {
   background-color: #D7816A;
@@ -43,28 +58,40 @@ a {
     outline: none;
     box-shadow: none; }
   .btn-primary:active {
-    background-color: rgba(215, 129, 106, 0.9);
-    outline: none;
-    box-shadow: none; }
+    background-color: #D7816A; }
 
-nav {
-  background-color: #FFF3F0;
-  color: #02111B; }
+.card {
+  min-height: 552px; }
+  .card img {
+    max-height: 300px; }
 
-.nav-link:hover {
+.card-body {
+  text-align: center; }
+
+.navbar {
   color: #02111B;
-  text-decoration: underline; }
+  padding: 0px; }
 
-.cart-icon {
-  margin: 5px;
-  font-size: 2rem; }
+.nav-link {
+  color: #D7816A;
+  font-size: 1.2rem; }
+  .nav-link:hover {
+    color: #D7816A;
+    text-decoration: underline; }
 
-.btn-cart:focus {
-  outline: none;
-  box-shadow: none; }
-
-.swal-overlay {
-  background-color: rgba(2, 17, 27, 0.9); }
+.terms-con {
+  color: #D7816A; }
+  .terms-con:hover {
+    color: #D7816A; }
 
 footer {
   height: 200px; }
+  footer a {
+    color: #D7816A; }
+    footer a:hover {
+      color: #D7816A; }
+
+.sm-icon {
+  margin-left: 15px;
+  font-size: 1.8rem;
+  color: #D7816A; }
